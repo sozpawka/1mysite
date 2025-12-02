@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Профиль{% endblock %}
+{% block content %}
+<h2>Профиль: {{ profile.user.username }}</h2>
+
+<p>Имя: {{ profile.full_name }}</p>
+<p>Био: {{ profile.bio }}</p>
+<p>Фото: <img src="{{ profile.photo.url }}" alt="фотка" style="max-width:120px; max-height:120px;"> </p>
+
+<a class="btn btn-primary" href="{% url 'accounts:profile_edit' %}">Редактировать</a>
+<a class="btn btn-danger" href="{% url 'accounts:profile_delete' %}">Удалить профиль</a>
+{% endblock %}

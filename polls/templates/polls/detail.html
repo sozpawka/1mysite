@@ -1,0 +1,38 @@
+{# polls/templates/polls/detail.html #}
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ question.question_text }}</h1>
+  {% if question.image %}
+    <img src="{{ question.image.url }}" alt="" style="max-width:400px;">
+  {% endif %}
+  <p>Создан: {{ question.pub_date }} | Действителен до: {{ question.expire_at }}</p>
+
+  {% if user.is_authenticated %}
+    {% if not user_voted %}
+      <form method="post" action="{% url 'polls:vote' question.id %}">
+        {% csrf_token %}
+        {% for ch in question.choices.all %}
+          <p>
+            <label>
+              <input type="radio" name="choice" value="{{ ch.id }}">
+              {{ ch.choice_text }}
+            </label>
+          </p>
+        {% endfor %}
+        <button type="submit">Голосовать</button>
+      </form>
+    {% else %}
+      <p><strong>Вы уже голосовали.</strong> Ваш выбор: {{ user_choice.choice_text }}</p>
+      <h3>Результаты</h3>
+      <p>Всего голосов: {{ total_votes }}</p>
+      <ul>
+        {% for r in results %}
+          <li>{{ r.choice.choice_text }} — {{ r.votes }} голосов ({{ r.percent }}%)</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% else %}
+    <p>Войдите, чтобы проголосовать. <a href="{% url 'login' %}?next={{ request.path }}">Войти</a></p>
+  {% endif %}
+{% endblock %}

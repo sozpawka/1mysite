@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Удаление профиля{% endblock %}
+{% block content %}
+<h2>Удалить профиль?</h2>
+<form method="post">
+  {% csrf_token %}
+  <p>Это действие необратимо. Вы уверены?</p>
+  <button class="btn btn-danger" type="submit">Удалить</button>
+  <a class="btn btn-secondary" href="{% url 'accounts:profile_view' %}">Отмена</a>
+</form>
+{% endblock %}

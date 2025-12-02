@@ -1,0 +1,19 @@
+{# polls/templates/polls/propose.html #}
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>Предложить опрос</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ q_form.as_p }}
+    <h3>Варианты (минимум 2)</h3>
+    {{ formset.management_form }}
+    {% for form in formset %}
+      <div class="choice-form">
+        {{ form.as_p }}
+      </div>
+    {% endfor %}
+    <button type="submit">Отправить на рассмотрение</button>
+  </form>
+{% endblock %}

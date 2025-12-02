@@ -1,0 +1,27 @@
+{# polls/templates/polls/index.html #}
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Список опросов</h1>
+  {% if user.is_authenticated %}
+    <p><a href="{% url 'polls:propose_question' %}">Предложить новый опрос</a> |
+       <a href="{% url 'polls:proposed_list' %}">Мои предложения</a>
+    </p>
+  {% endif %}
+
+  {% if questions %}
+    <ul>
+    {% for q in questions %}
+      <li>
+        <a href="{% url 'polls:detail' q.id %}">{{ q.question_text }}</a>
+        {% if q.image %}
+          <br><img src="{{ q.image.url }}" alt="" style="max-width:200px; max-height:120px;">
+        {% endif %}
+        <br><small>До: {{ q.expire_at }}</small>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>Нет опросов для отображения.</p>
+  {% endif %}
+{% endblock %}

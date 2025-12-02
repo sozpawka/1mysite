@@ -1,0 +1,18 @@
+{# polls/templates/polls/proposed_list.html #}
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Мои предложения</h1>
+  {% if questions %}
+    <ul>
+    {% for q in questions %}
+      <li>
+        {{ q.question_text }} — {% if q.is_approved %}<strong>Одобрен</strong>{% else %}<em>На рассмотрении</em>{% endif %}
+        <br>Создан: {{ q.pub_date }} До: {{ q.expire_at }}
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>Вы еще не предлагали опросы.</p>
+  {% endif %}
+{% endblock %}
