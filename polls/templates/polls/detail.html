@@ -1,4 +1,3 @@
-{# polls/templates/polls/detail.html #}
 {% extends "base.html" %}
 
 {% block content %}
@@ -33,6 +32,6 @@
       </ul>
     {% endif %}
   {% else %}
-    <p>Войдите, чтобы проголосовать. <a href="{% url 'login' %}?next={{ request.path }}">Войти</a></p>
+    <p>Войдите, чтобы проголосовать. <a href="{% url 'accounts:login' %}?next={{ request.path }}">Войти</a></p>
   {% endif %}
 {% endblock %}
